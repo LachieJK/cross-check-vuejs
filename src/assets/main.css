@@ -219,12 +219,14 @@ button {
 }
 
 .cancel-button {
-  background: rgb(226, 226, 226); /* Original color */
+  padding: 5px 30px !important; 
+  margin-right: 15px;
+  background-color: rgb(226, 226, 226) !important; /* Original color */
   transition: background-color 0.3s ease; /* Smooth transition for the background color */
 }
 
 .cancel-button:hover {
-  background: rgb(203, 203, 203); /* Hover color */
+  background-color: rgb(203, 203, 203) !important; /* Hover color */
 }
 
 .signout-container {

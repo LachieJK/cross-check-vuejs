@@ -4,7 +4,7 @@ import IssuesPage from '../views/IssuesPage.vue';
 import HistoryPage from '../views/HistoryPage.vue';
 import RegisterPage from '../views/RegisterPage.vue';
 import LoginPage from '../views/LoginPage.vue';
-import SignoutPage from '../views/SignoutPage.vue';
+import SignoutPage from '../views/LogoutPage.vue';
 
 const routes = [
     {
@@ -28,7 +28,7 @@ const routes = [
         component: LoginPage
     },
     {
-        path: '/signout',
+        path: '/logout',
         component: SignoutPage
     }
 ]

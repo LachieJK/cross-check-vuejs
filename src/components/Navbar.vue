@@ -13,6 +13,9 @@
 
   onMounted(() => {
     getUser()
+    supabase.auth.onAuthStateChange((event, session) => {
+        getUser()
+    })
   })
 
 </script>
