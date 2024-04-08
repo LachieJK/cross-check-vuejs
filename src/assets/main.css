@@ -1,35 +1,632 @@
-@import './base.css';
-
-#app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+/* Body styles */
+body {
+  padding-top: 80px; /* Offset from top to account for fixed navbar */
+  padding-left: 50px; /* Left padding for body content */
+  padding-right: 50px; /* Right padding for body content */
+  padding-bottom: 50px; /* Space on the bottom of page */
+  background-color: #fafafa; /* Light grey background for contrast */
 }
 
-a,
-.green {
-  text-decoration: none;
-  color: hsla(160, 100%, 37%, 1);
-  transition: 0.4s;
-  padding: 3px;
+/* h2 styles */
+h2 {
+  font-size: 30px; /* Sets font size of heading to 30 pixels */
+  font-weight: bold; /* Makes the heading text bold */
+  margin-top: 10px; /* Sets top margin of the heading to 10 pixels */
+  margin-bottom: 30px; /* Adds space below the heading */
+  color: rgb(58, 58, 58); /* Sets the color of the heading text */
 }
 
-@media (hover: hover) {
-  a:hover {
-    background-color: hsla(160, 100%, 37%, 0.2);
+/* Label styles */
+label {
+  padding-bottom: 3px; /* Small padding below labels for spacing */
+}
+
+/* Styles for elements with class 'empty-message' */
+.empty-message {
+  text-align: center; /* Aligns text to the center */
+  margin-top: 25px; /* Sets top margin of the element to 25 pixels */
+}
+
+/* Styles for '.details-heading' class */
+.details-heading {
+  text-align: center; /* Centers the heading text */
+  font-weight: bold; /* Makes the heading text bold */
+  font-size: 40px; /* Sets font size of heading to 40 pixels */
+  padding-top: 30px; /* Adds space above the heading */
+  padding-bottom: 20px; /* Adds space below the heading */
+}
+
+/* Container for wrapping all content */
+.all-content {
+  width: 60vw; /* Width set to 60% of the viewport width */
+  margin: 0 auto; /* Auto margins for horizontal centering */
+  position: relative; /* Position relative for layout purposes */
+}
+
+/* Styles for a centered form */
+.centered-form {
+  display: flex; /* Uses flexbox for layout */
+  flex-direction: column; /* Stacks child elements vertically */
+  align-items: center; /* Centers children horizontally within the form */
+}
+
+/* Styles for a centered container */
+.centered-container {
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+}
+
+/* Styles for form groupings */
+.form-group {
+  width: 60vw; /* Width of each form group is 60% of the viewport width */
+  display: flex; /* Uses flexbox for layout */
+  flex-direction: column; /* Stacks elements vertically */
+  align-items: flex-start; /* Aligns items to the start of the flex container */
+  margin-bottom: 15px; /* Adds spacing below each form group */
+}
+
+/* Styling for form control elements */
+.form-control {
+  padding: 5px; /* Padding inside form control for better text visibility */
+  border-radius: 5px; /* Rounds the corners of form controls */
+  border: none; /* Removes default border */
+  border: solid 1px #ccc; /* Adds a light grey solid border */
+  background-color: white; /* White background for form controls */
+  border-width: 2px; /* Sets the border width to 2 pixels */
+}
+
+/* Styles for navigation profile picture */
+.nav-profile-picture {
+  margin-top: 0px; /* No top margin */
+  margin-right: 15px; /* Space to the right for separation */
+  width: 40px; /* Fixed width of the profile picture */
+  height: 40px; /* Fixed height of the profile picture */
+  border-radius: 50%; /* Rounds the image to create a circular shape */
+  overflow: hidden; /* Hides excess parts of the image outside the circle */
+  border: 2px solid white; /* Adds a white border around the image */
+  object-fit: cover; /* Ensures the image covers the area without distortion */
+}
+
+/* Styles for elements with class 'list-contents' */
+.list-contents {
+  display: flex; /* Displays the element as a flex container */
+  width: 100%; /* Sets the width of the element to 100% */
+  cursor: pointer; /* Changes cursor to pointer on hover */
+  border: solid 2px rgb(226, 226, 226); /* Light grey border for the container */
+  border-radius: 10px; /* Adds rounded corners to the container */
+  margin: 20px 0px; /* Sets margin above and below the element */
+  background-color: white; /* Sets background color to white */
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.2); /* Adds shadow effect */
+  transition: box-shadow 0.3s ease, transform 0.3s ease, background-color 0.3s ease; /* Smooth transition effect for box-shadow, transform, and background-color */
+}
+
+/* Hover styles for elements with class 'list-contents' */
+.list-contents:hover {
+  box-shadow: 0 0 14px rgba(0, 0, 0, 0.4); /* Enhanced shadow for pop effect on hover */
+  transform: scale(1.03); /* Slightly scale up the box on hover */
+  background-color: #f8f8f8; /* Optional: slightly change background color on hover */
+}
+
+/* Styles for the left side of elements with class 'list-contents' */
+.list-contents-left-side {
+  flex-grow: 1; /* Allows the left side to grow to fill available space */
+  flex-shrink: 1; /* Allows the left side to shrink if necessary */
+  display: flex; /* Displays the left side as a flex container */
+  padding: 20px 0px 20px 20px; /* Sets padding inside the left side */
+  flex-basis: calc(100% - 120px); /* Adjust based on the right side's width */
+  min-width: 0; /* Important for overflow in flexbox */
+  align-items: center; /* Aligns items vertically in the center */
+  font-size: larger; /* Sets font size to larger */
+  white-space: nowrap; /* Prevents text from wrapping */
+  overflow: hidden; /* Hides overflow content */
+}
+
+/* Styles for the right side of elements with class 'list-contents' */
+.list-contents-right-side {
+  width: 180px; /* Sets width of the right side */
+  padding: 10px 20px 20px 0px; /* Sets padding inside the right side */
+  flex-direction: column; /* Sets flex direction to column */
+  justify-content: space-between; /* Aligns one at the top, one at the bottom */
+  text-align: right; /* Aligns text to the right */
+}
+
+/* Styles for elements with class 'list-complete-count' */
+.list-complete-count {
+  font-family: 'Courier New', Courier, monospace; /* Sets font family */
+  color: rgb(0, 170, 0); /* Green text for completed count */
+}
+
+/* Styles for elements with class 'list-issues-count' */
+.list-issues-count {
+  font-family: 'Courier New', Courier, monospace; /* Sets font family */
+  color: red; /* Red text for issues */
+}
+
+/* Styles for elements with class 'animated-box-button' */
+.animated-box-button {
+  height: auto; /* Automatically adjusts height */
+  transition: .5s linear; /* Smooth transition effect */
+  position: relative; /* Positioned relative to its normal position */
+  display: block; /* Displays the element as a block element */
+  overflow: hidden; /* Hides overflowing content */
+  padding: 15px; /* Adds padding inside the element */
+  text-align: center; /* Aligns text to the center */
+  margin: 0 auto; /* Centering horizontally */
+  background: transparent; /* Transparent background */
+  text-transform: uppercase; /* Converts text to uppercase */
+  font-size: 20px; /* Sets font size to 20 pixels */
+  font-weight: 700; /* Sets font weight to bold */
+  color: #4b4b4b; /* Sets text color */
+}
+
+/* Styles for elements with class 'animated-box-button' */
+.animated-box-button:before {
+  position: absolute; /* Positioned absolutely */
+  content: ''; /* Empty content */
+  left: 0; /* Aligns to the left */
+  bottom: 0; /* Aligns to the bottom */
+  height: 4px; /* Sets height of the pseudo-element */
+  width: 100%; /* Sets width to 100% */
+  border-bottom: 3px solid transparent; /* Sets border at the bottom */
+  border-left: 3px solid transparent; /* Sets border at the left */
+  box-sizing: border-box; /* Border-box sizing */
+  transform: translateX(100%); /* Moves the element 100% to the right */
+}
+
+/* Styles for elements with class 'animated-box-button' */
+.animated-box-button:after {
+  position: absolute; /* Positioned absolutely */
+  content: ''; /* Empty content */
+  top: 0; /* Aligns to the top */
+  left: 0; /* Aligns to the left */
+  width: 100%; /* Sets width to 100% */
+  height: 4px; /* Sets height of the pseudo-element */
+  border-top: 3px solid transparent; /* Sets border at the top */
+  border-right: 3px solid transparent; /* Sets border at the right */
+  box-sizing: border-box; /* Border-box sizing */
+  transform: translateX(-100%); /* Moves the element 100% to the left */
+}
+
+/* Styles for elements with class 'animated-box-button' */
+.animated-box-button:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5); /* Adds shadow effect on hover */
+}
+
+/* Styles for elements with class 'animated-box-button' */  
+.animated-box-button:hover:before {
+  border-color: #4b4b4b; /* Sets border color */
+  height: 100%; /* Sets height to 100% */
+  transform: translateX(0); /* Resets transform */
+  transition: .5s transform linear, .5s height linear .5s; /* Smooth transition effect */
+}
+
+/* Styles for elements with class 'animated-box-button' */
+.animated-box-button:hover:after {
+  border-color: #4b4b4b; /* Sets border color */
+  height: 100%; /* Sets height to 100% */
+  transform: translateX(0); /* Resets transform */
+  transition: .5s transform linear, .5s height linear .5s; /* Smooth transition effect */
+}
+
+/* Styles button elements */
+button {
+  text-decoration: none; /* Removes text decoration */
+  cursor: pointer; /* Changes cursor to pointer */
+  outline: none; /* Removes outline */
+  border: none; /* Removes border */
+  background: transparent; /* Transparent background */
+}
+
+.cancel-button {
+  background: rgb(226, 226, 226); /* Original color */
+  transition: background-color 0.3s ease; /* Smooth transition for the background color */
+}
+
+.cancel-button:hover {
+  background: rgb(203, 203, 203); /* Hover color */
+}
+
+.signout-container {
+  margin: 30px auto; /* Adds space above and centers the container */
+  width: 500px; /* Sets the width of the container */
+  text-align: center; /* Aligns text to the center */
+  background-color: white; /* White background */
+  padding: 40px; /* Adds padding inside the container */  
+  border-radius: 10px; /* Adds rounded corners */
+  box-shadow: 0 0 7px rgba(0, 0, 0, 0.2); /* Adds shadow effect */
+}
+
+.signout-buttons-container {
+  display: flex; /* Uses flexbox for layout */
+  justify-content: center; /* Centers the buttons */
+  margin-top: 30px; /* Adds space above the buttons */
+}
+
+/* Styles for the three-dot menu in posts */
+.three-dots {
+  display: flex; /* Uses flexbox for layout */
+  flex: 1; /* Flex grow factor, allows this item to fill available space */
+  justify-content: flex-end; /* Aligns the dots to the end (right side) */
+  cursor: pointer; /* Changes cursor to pointer on hover */
+  padding-bottom: 15px; /* Adds space below the dots */
+}
+
+/* Styles for the dropdown menu */
+.dropdown-menu {
+  display: none; /* Initially hidden */
+  position: absolute; /* Positioned absolutely relative to its positioned ancestor */
+  right: 0; /* Aligned to the right edge of the parent element */
+  margin-top: 25px; /* Space above the dropdown */
+  background-color: white; /* White background for dropdown */
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2); /* Shadow for depth effect */
+  z-index: 1; /* Stacks above other elements */
+}
+
+/* Styles for each item in the dropdown menu */
+.dropdown-menu .dropdown-item {
+  padding: 12px 16px; /* Padding for each item for spacing */
+  text-decoration: none; /* No underline for text */
+  display: block; /* Display as block for full-width click area */
+  color: black; /* Text color */
+}
+
+/* Hover effect for dropdown items */
+.dropdown-menu .dropdown-item:hover {
+  background-color: #f1f1f1; /* Light grey background on hover */
+}
+
+/* Styles for the active dropdown item */
+.task-contents {
+  display: flex; /* This will enable flexbox for the container */
+  width: 100%; /* This will make the container take up the full width of its parent */
+  border: solid 2px rgb(214, 214, 214); /* This will add a border around the container */
+  border-radius: 8px; /* This will round the corners of the container */
+  margin: 20px 0px; /* This will add space above and below the container */
+  background-color: rgb(226, 225, 225); /* This will set the background color of the container */
+  transition: background-color 0.5s ease, border 0.5s ease, transform 0.5s ease; /* This will make the transition smooth */
+}
+
+/* Styles for the task-completed items */
+.task-completed {
+  background-color: rgba(155, 231, 155, 0.3); /* This will now smoothly transition */
+  transform: scale(0.9); /* Scale down to 80% size */
+  border: solid 2px rgba(95, 151, 95, 0.3); /* This will now smoothly transition */
+  transition: background-color 0.5s ease, border 0.5s ease, transform 0.5s ease; /* This will make the transition smooth */
+}
+
+/* Styles for the task-issue items */
+.task-issue {
+  background-color: rgba(221, 111, 111, 0.3); /* This will now smoothly transition */
+  transform: scale(0.9); /* Scale down to 80% size */
+  border: solid 2px rgba(182, 92, 92, 0.3); /* This will now smoothly transition */
+  transition: background-color 0.5s ease, border 0.5s ease, transform 0.5s ease; /* This will make the transition smooth */
+}
+
+/* Styles for the task-completed-with-issue items */
+.task-completed-with-issue {
+  background-color: rgba(253, 253, 150, 0.3); /* This will now smoothly transition */
+  transform: scale(0.9); /* Scale down to 80% size */
+  border: solid 2px rgba(155, 155, 90, 0.3); /* This will now smoothly transition */
+}
+
+/* Styles for the task-completed-with-issue items */
+@keyframes flashAnimation {
+  0%, 100% {
+       background-color: rgb(226, 226, 226); /* This will set the background color of the container at 100% and 0%*/
+       border: solid 2px rgb(214, 214, 214) /* This will add a border around the container at 100% and 0% */
+  }
+  50% { 
+      background-color: rgba(160, 160, 160, 0.678); /* This will set the background color of the container at 50% */
+      border: solid 2px rgb(146, 146, 146); /* This will add a border around the container at 50% */
   }
 }
 
-@media (min-width: 1024px) {
-  body {
-    display: flex;
-    place-items: center;
-  }
+/* Styles for important-flash items */
+.important-flash {
+  animation: flashAnimation 1s ease-out infinite; /* This will make the animation flash for 1 second */
+}
 
-  #app {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    padding: 0 2rem;
-  }
+/* Styles for the handles */
+.contents-handle { 
+  display: flex; /* This will enable flexbox for the container */
+  align-items: center; /* This will vertically center the items */
+  min-width: 0; /* Important for overflow in flexbox */
+}
+
+/* Styles for the handle svg */
+.contents-handle svg {
+  height: 30px; /* This will set the height of the SVG icon */
+  width: 30px; /* This will set the width of the SVG icon */
+  margin-left: 15px; /* This will add space between the icon and the text */
+  cursor: grab; /* This will change the cursor to a grabbing hand */
+}
+
+/* Styles for the task-contents-left-side */
+.task-contents-left-side {
+  flex-grow: 1; /* This will allow the left side to grow to fill available space */
+  flex-shrink: 1; /* This will allow the left side to shrink if necessary */
+  display: flex; /* This will enable flexbox for the container */
+  flex-direction: column; /* This will stack the child elements vertically */
+  padding: 25px 0px 25px 25px; /* This will add padding inside the left side */
+  flex-basis: calc(100% - 120px); /* Adjust based on the right side's width */
+  min-width: 0; /* Important for overflow in flexbox */
+  font-size: 20px; /* This will set the font size of the text */
+}
+
+/* Styles for the task-completion-message */
+.task-completion-message {
+  font-size: medium; /* This will set the font size of the text */
+  color: rgb(109, 109, 109); /* This will set the color of the text */
+  font-family: 'Courier'; /* Sets font family */
+  padding-top: 10px; /* This will add space above the text */
+  height: 34px; /* This will set the height of the text */
+}
+
+/* Styles for the task-contents-right-side */
+.task-contents-right-side {
+  width: 220px; /* This will set the width of the right side */
+  padding: 10px 20px 20px 0px; /* This will add padding inside the right side */
+  flex-direction: column; /* This will stack the child elements vertically */
+  justify-content: space-between; /* Align one at the top, one at the bottom */
+  text-align: right; /* This will align the text to the right */
+}
+
+/* Styles for the task-contents-right-side-buttons */
+.task-contents-right-side-buttons {
+  display: flex; /* This will enable flexbox for the container */
+  align-items: center; /* This will vertically center the items if they have different heights */
+  justify-content: flex-end; /* This aligns the items to the start of the container */
+}
+
+/* Styles for the task-complete-button, task-issues-button, and task-important-button */
+.task-complete-button, .task-issues-button, .task-important-button {
+  margin-top: 10px; /* This will add space above the buttons */
+  margin-left: 10px; /* Adds some space between the buttons */
+}
+
+/* Styles for the task-complete-button svg, task-issues-button svg, and task-important-button svg */
+.task-complete-button svg, .task-issues-button svg, .task-important-button svg {
+  height: 40px; /* This will set the height of the SVG icon */
+  width: 40px; /* This will set the width of the SVG icon */
+}
+
+/* Styles for SVG icons inside elements with class 'not-important' */
+.not-important svg {
+  fill: rgb(255, 255, 255); /* SVG icon starts as white unselected */
+  transition: fill 0.3s ease; /* Smooth transition effect for fill property */
+}
+
+/* Hover styles for SVG icons inside elements with class 'not-important' */
+.not-important svg:hover {
+  fill: rgb(255, 255, 102); /* Changes the SVG icon to yellow when hovered over */
+}
+
+/* Styles for SVG icons inside elements with class 'important' */
+.important svg {
+  fill: rgb(255, 255, 0); /* Changes the SVG icon to yellow */
+}
+
+/* Styles for SVG icons inside elements with class 'not-complete' */
+.not-complete svg {
+  fill: rgb(255, 255, 255); /* SVG icon starts as white unselected */
+  transition: fill 0.3s ease; /* Smooth transition effect for fill property */
+}
+
+/* Hover styles for SVG icons inside elements with class 'not-complete' */
+.not-complete svg:hover {
+  fill: rgb(84, 202, 84); /* Changes the SVG icon to green when hovered over */
+}
+
+/* Styles for SVG icons inside elements with class 'complete' */
+.complete svg {
+  fill: rgb(57, 175, 57); /* Changes the SVG icon to green when selected */
+}
+
+/* Styles for SVG icons inside elements with class 'no-issue' */
+.no-issue svg {
+  fill: rgb(255, 255, 255); /* SVG icon starts as white unselected */
+  transition: fill 0.3s ease; /* Smooth transition effect for fill property */
+}
+
+/* Hover styles for SVG icons inside elements with class 'no-issue' */
+.no-issue svg:hover {
+  fill: rgb(238, 120, 120); /* Changes the SVG icon to red when hovered over */
+}
+
+/* Styles for SVG icons inside elements with class 'issue' */
+.issue svg {
+  fill: rgb(245, 95, 95); /* Changes the SVG icon to red when selected */
+}
+
+/* Styles for the tooltip container */
+.tooltip-container {
+  position: relative; /* Positioned relative to its normal position */
+  display: inline-block; /* Displays the element as an inline-block */
+}
+
+/* Styles for the tooltip text */
+.tooltip-text {
+  visibility: hidden; /* Hides the tooltip text by default */
+  width: 120px; /* Sets the width of the tooltip */
+  background-color: white; /* Sets background color to white */
+  color: black; /* Sets text color to black */
+  text-align: center; /* Aligns text to the center */
+  border-radius: 6px; /* Adds rounded corners to the tooltip */
+  padding: 5px 0; /* Adds padding inside the tooltip */
+  
+  /* Positioning the tooltip */
+  position: absolute; /* Positioned absolutely */
+  z-index: 1; /* Sets z-index to ensure it's above other elements */
+  bottom: 100%; /* Aligns to the bottom */
+  left: 50%; /* Aligns to the center horizontally */
+  margin-left: -60px; /* Adjusts horizontal positioning */
+  margin-bottom: 5px; /* Adjusts vertical positioning */
+  
+  /* Optional: Fade in */
+  opacity: 0; /* Sets initial opacity to 0 */
+  transition: opacity 0.5s, visibility 0.5s; /* Smooth transition effect for opacity and visibility */
+}
+
+/* Hover styles for showing the tooltip text */
+.tooltip-container:hover .tooltip-text {
+  visibility: visible; /* Makes the tooltip text visible */
+  opacity: 1; /* Fades in the tooltip text */
+}
+
+/* Styles for the minimalistic table */
+.table-minimalistic {
+  border-collapse: collapse; /* Collapses table borders */
+  width: 100%; /* Sets table width to 100% */
+  font-size: 16px; /* Sets font size to 16 pixels */
+  color: #333; /* Sets text color to dark grey for readability */
+}
+
+.table-minimalistic thead {
+  background-color: #f5f5f5; /* Light grey background for the table header */
+  border-bottom: 2px solid #e1e1e1; /* Subtle border for header separation */
+}
+
+.table-minimalistic thead th {
+  text-align: left; /* Aligns header text to the left */
+  padding: 12px 15px; /* Spacing inside header cells */
+}
+
+.table-minimalistic tbody td {
+  padding: 10px 15px; /* Spacing inside data cells */
+  border-bottom: 1px solid #e1e1e1; /* Light border for separating rows */
+}
+
+.table-minimalistic tbody tr:hover {
+  background-color: #ededed; /* Slight highlight for row hover */
+}
+
+.table-minimalistic tbody tr:last-child td {
+  border-bottom: none; /* Removes border on the last row */
+}
+
+/* Styles for the issue resolved button SVG */
+.issue-resolved-button svg {
+  height: 30px; /* Sets height of the SVG icon */
+  width: 30px; /* Sets width of the SVG icon */
+}
+
+/* Styles for SVG icons inside elements with class 'not-resolved' */
+.not-resolved svg {
+  fill: rgb(201, 201, 201); /* SVG icon starts as white unselected */
+  transition: fill 0.3s ease; /* Smooth transition effect for fill property */
+}
+
+/* Hover styles for SVG icons inside elements with class 'not-resolved' */
+.not-resolved svg:hover {
+  fill: rgb(57, 175, 57); /* Changes the SVG icon to green when hovered over */
+}
+
+/* Styles for the issue delete button SVG */
+.issue-delete-button svg {
+  height: 25px; /* Sets height of the SVG icon */
+  width: 25px; /* Sets width of the SVG icon */
+}
+
+/* Styles for modal dropdowns */
+.modal-dropdowns {
+  margin-top: 20px; /* Adds top margin for spacing */
+}
+
+/* Styles for elements with class 'critical-severity' or 'high-importance' */
+.critical-severity, .high-importance {
+  background-color: rgb(255, 116, 116); /* Sets background color */
+  color: white; /* Sets text color to white */
+  font-weight: bold; /* Sets font weight to bold */
+  border: none; /* Removes border */
+  border-radius: 10px; /* Adds rounded corners */
+  padding: 4px 8px; /* Adds padding */
+  display: inline-block; /* Displays as inline-block */
+}
+
+/* Styles for elements with class 'moderate-severity' or 'normal-importance' */
+.moderate-severity, .normal-importance {
+  background-color: rgb(241, 227, 27); /* Sets background color */
+  color: white; /* Sets text color to white */
+  font-weight: bold; /* Sets font weight to bold */
+  border: none; /* Removes border */
+  border-radius: 10px; /* Adds rounded corners */
+  padding: 4px 8px; /* Adds padding */
+  display: inline-block; /* Displays as inline-block */
+}
+
+/* Styles for elements with class 'minimal-severity' or 'low-importance' */
+.minimal-severity, .low-importance {
+  background-color: rgb(66, 226, 66); /* Sets background color */
+  color: white; /* Sets text color to white */
+  font-weight: bold; /* Sets font weight to bold */
+  border: none; /* Removes border */
+  border-radius: 10px; /* Adds rounded corners */
+  padding: 4px 8px; /* Adds padding */
+  display: inline-block; /* Displays as inline-block */
+}
+
+/* Styles for the clear button */
+.clear-button {
+  background-color: #FFFFFF; /* Sets background color */
+  border: 1px solid #222222; /* Sets border */
+  border-radius: 8px; /* Adds rounded corners */
+  box-sizing: border-box; /* Box-sizing property */
+  color: #222222; /* Sets text color */
+  cursor: pointer; /* Changes cursor to pointer */
+  display: inline-block; /* Displays as inline-block */
+  font-family: Circular,-apple-system,BlinkMacSystemFont,Roboto,"Helvetica Neue",sans-serif; /* Sets font family */
+  font-size: 16px; /* Sets font size */
+  font-weight: 600; /* Sets font weight */
+  line-height: 20px; /* Sets line height */
+  margin: 0; /* Removes margin */
+  outline: none; /* Removes outline */
+  padding: 13px 23px; /* Adds padding */
+  position: relative; /* Positioning relative to its normal position */
+  text-align: center; /* Aligns text to the center */
+  text-decoration: none; /* Removes text decoration */
+  touch-action: manipulation; /* Touch-action property */
+  transition: box-shadow .2s,-ms-transform .1s,-webkit-transform .1s,transform .1s; /* Smooth transition effect */
+  user-select: none; /* Prevents text selection */
+  -webkit-user-select: none; /* Prevents text selection in WebKit browsers */
+  width: auto; /* Sets width to auto */
+}
+
+/* Hover styles for the clear button */
+.clear-button:hover {
+  box-shadow: #222222 0 0 0 2px, rgba(255, 255, 255, 0.8) 0 0 0 4px; /* Adds shadow on hover */
+  transition: box-shadow .2s; /* Smooth transition effect */
+}
+
+/* Active styles for the clear button */
+.clear-button:active {
+  background-color: #F7F7F7; /* Sets background color */
+  border-color: #000000; /* Sets border color */
+  transform: scale(.96); /* Slightly scales down the button */
+}
+
+/* Styles for the back button */
+.back-button {
+  color: grey; /* Sets the text color */
+  text-decoration: none; /* Removes the underline from the text */
+  font-family: Arial, sans-serif; /* Specifies the button's font */
+  font-size: 16px; /* Sets the font size */
+  background-color: transparent; /* Ensures there is no background */
+  border: none; /* Removes the border */
+  cursor: pointer; /* Changes the cursor to indicate it's clickable */
+}
+
+/* Hover styles for the back button */
+.back-button:hover {
+  color: darkgrey; /* Darkens the text color slightly on hover for visual feedback */
+}
+
+/* Styles for the text inside the back button */
+.back-button-text {
+  padding-left: 5px; /* Adds a small space between the icon and text */
+}
+
+/* Hover styles for the text inside the back button */
+.back-button-text:hover {
+  text-decoration: underline; /* Optionally add an underline on hover to indicate it's clickable */
 }
