@@ -1,25 +1,3 @@
-<script setup>
-
-  import { ref, onMounted } from 'vue'
-  import { supabase } from '../lib/supabaseClient'
-
-  const user = ref(null)
-
-  async function getUser() {
-    const { data } = await supabase.auth.getUser()
-    user.value = data.user
-    console.log(user.value)
-  }
-
-  onMounted(() => {
-    getUser()
-    supabase.auth.onAuthStateChange((event, session) => {
-        getUser()
-    })
-  })
-
-</script>
-
 <template>
   <!-- Bootstrap navigation bar -->
   <nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top border-bottom border-body">
@@ -57,3 +35,30 @@
     </div>
   </nav>
 </template>
+
+<script>
+
+  import { supabase } from '../lib/supabaseClient'
+
+  export default {
+    data() {
+      return {
+        user: null
+      }
+    },
+    created() {
+      this.getUser()
+      supabase.auth.onAuthStateChange((event, session) => {
+          this.getUser()
+      })
+    },
+    methods: {
+      async getUser() {
+        const { data } = await supabase.auth.getUser()
+        this.user = data.user
+        console.log(this.user)
+      }
+    }
+  }
+
+</script>

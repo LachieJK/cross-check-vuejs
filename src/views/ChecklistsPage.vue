@@ -1,70 +1,3 @@
-<script setup>
-import { ref, onMounted } from 'vue'
-import { supabase } from '../lib/supabaseClient'
-import { useRouter } from 'vue-router'
-
-const user = ref(null)
-const checklists = ref([])
-const router = useRouter()
-
-async function getUser() {
-    const { data } = await supabase.auth.getUser()
-    user.value = data.user
-    console.log("current user is " + user.value.email)
-    if (user.value == null) {
-        return router.push('/login')
-    }
-}
-
-async function getChecklists() {
-    const { data, error } = await supabase
-        .from('D100_List')
-        .select('*')
-        .eq('owner_id', user.value.id)
-    if (error) {
-        console.error("get list error is " + error)
-    } else {
-        checklists.value = data
-    }
-}
-
-async function createList() {
-    const title = document.getElementById('list_title_textarea').value
-    const { data, error } = await supabase
-        .from('D100_List')
-        .insert({ listName: title, owner_id: user.value.id})
-    if (error) {
-        console.error("create list error is " + error)
-    }
-}
-
-/* NOT WORKING
-const realtime_changes = supabase
-    .channel('D100_List')
-    .on(
-        'postgres_changes',
-        {
-            event: '*',
-            schema: 'public',
-            table: 'D100_List',
-        },
-        (payload) => {
-            console.log(payload)
-            if (payload.new) {
-                lists.value.push(payload.new);
-            }
-        }
-    )
-    .subscribe();
-*/
-
-onMounted(async () => {
-    await getUser()
-    getChecklists()
-})
-
-</script>
-
 <template>
     <div v-if="user">
         <!-- Section for the button that triggers the modal to create a new list -->
@@ -186,3 +119,77 @@ onMounted(async () => {
         </div>
     </div>
 </template>
+
+<script>
+import { supabase } from '../lib/supabaseClient'
+
+export default {
+    data() {
+        return {
+            user: null,
+            checklists: [],
+            realtime_changes: undefined,
+        }
+    },
+    async created() {
+        await this.getUser();
+        this.getChecklists();
+        this.subscribeLists();
+    },
+    methods: {
+        async getUser() {
+            const { data } = await supabase.auth.getUser()
+            this.user = data.user
+            console.log(this.user)
+            if (this.user == null) {
+                return this.$router.push('/login')
+            }
+        },
+        async getChecklists() {
+            const { data, error } = await supabase
+                .from('D100_List')
+                .select('*')
+                .eq('owner_id', this.user.id)
+            if (error) {
+                console.error("get list error is " + error)
+            } else {
+                this.checklists = data
+            }
+            console.log(this.checklists)
+        },
+        async createList() {
+            const title = document.getElementById('list_title_textarea').value
+            const { data, error } = await supabase
+                .from('D100_List')
+                .insert({ listName: title, owner_id: this.user.id})
+            if (error) {
+                console.error("create list error is " + error)
+            }
+        },
+        subscribeLists() {
+            this.realtime_changes = supabase
+                .channel('D100_List')
+                .on(
+                    'postgres_changes',
+                    {
+                        event: '*',
+                        schema: 'public',
+                        table: 'D100_List',
+                    },
+                    (payload) => {
+                        console.log(payload)
+                        if (payload.eventType === 'UPDATE' && payload.new.owner_id === this.user.id) {
+                            for (let i = 0; i < this.checklists.length; i++) {
+                                if (this.checklists[i].id === payload.new.id) {
+                                    this.checklists[i] = payload.new;
+                                }
+                            }
+                        }
+                    }
+                )
+                .subscribe();
+        },
+    }
+}
+</script>
+
