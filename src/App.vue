@@ -11,5 +11,4 @@ export default {
     Navbar
   }
 }
-
 </script>

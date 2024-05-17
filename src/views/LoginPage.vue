@@ -1,34 +1,8 @@
-<script setup>
-import { ref } from 'vue';
-import { supabase } from '../lib/supabaseClient';
-import { useRouter } from 'vue-router';
-
-const email = ref('');
-const password = ref('');
-const router = useRouter();
-
-async function login(event) {
-    event.preventDefault();
-
-    const { data, error } = await supabase.auth.signInWithPassword({
-        email: email.value,
-        password: password.value
-    });
-
-    if (error) {
-        alert(error.message);
-    } else {
-        router.push('/');
-    }
-}
-
-</script>
-
 <template>
     <h2 class="details-heading">Login</h2> <!-- Heading for login -->
 
     <!-- Form for login -->
-    <form class="centered-form" @submit="login">
+    <form class="centered-form" @submit.prevent="login">
         <div class="form-group" style="width: 40vw">
             <input v-model="email" autofocus class="form-control" type="text" placeholder="Email"> <!-- Input for email -->
         </div>
@@ -41,3 +15,29 @@ async function login(event) {
         </div>
     </form>
 </template>
+
+<script>
+import { supabase } from '../lib/supabaseClient';
+
+export default {
+    data() {
+        return {
+            email: null,
+            password: null,
+        }
+    },
+    methods: {
+        async login() {
+            const { error } = await supabase.auth.signInWithPassword({
+                email: this.email,
+                password: this.password
+            });
+            if (error) {
+                alert(error.message);
+            } else {
+                this.$router.push('/');
+            }
+        }
+    }
+}
+</script>

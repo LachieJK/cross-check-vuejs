@@ -155,11 +155,10 @@ export default {
             } else {
                 this.checklists = data
             }
-            console.log(this.checklists)
         },
         async createList() {
             const title = document.getElementById('list_title_textarea').value
-            const { data, error } = await supabase
+            const { error } = await supabase
                 .from('D100_List')
                 .insert({ listName: title, owner_id: this.user.id})
             if (error) {

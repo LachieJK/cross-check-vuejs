@@ -48,7 +48,7 @@
     },
     created() {
       this.getUser()
-      supabase.auth.onAuthStateChange((event, session) => {
+      supabase.auth.onAuthStateChange(() => {
           this.getUser()
       })
     },
