@@ -56,7 +56,6 @@
       async getUser() {
         const { data } = await supabase.auth.getUser()
         this.user = data.user
-        console.log(this.user)
       }
     }
   }

@@ -453,6 +453,7 @@ button {
   width: 120px; /* Sets the width of the tooltip */
   background-color: white; /* Sets background color to white */
   color: black; /* Sets text color to black */
+  border: solid 1px #ccc; /* Adds a light grey border */
   text-align: center; /* Aligns text to the center */
   border-radius: 6px; /* Adds rounded corners to the tooltip */
   padding: 5px 0; /* Adds padding inside the tooltip */
@@ -460,7 +461,7 @@ button {
   /* Positioning the tooltip */
   position: absolute; /* Positioned absolutely */
   z-index: 1; /* Sets z-index to ensure it's above other elements */
-  bottom: 100%; /* Aligns to the bottom */
+  bottom: -100%; /* Aligns to the bottom */
   left: 50%; /* Aligns to the center horizontally */
   margin-left: -60px; /* Adjusts horizontal positioning */
   margin-bottom: 5px; /* Adjusts vertical positioning */
@@ -632,3 +633,69 @@ button {
 .back-button-text:hover {
   text-decoration: underline; /* Optionally add an underline on hover to indicate it's clickable */
 }
+
+
+.lds-ellipsis, .lds-ellipsis div {
+  box-sizing: border-box;
+}
+.lds-ellipsis {
+  display: inline-block;
+  position: relative;
+  width: 120px;
+  height: 120px;
+}
+.lds-ellipsis div {
+  position: absolute;
+  top: 50px;
+  width: 20px; 
+  height: 20px; 
+  border-radius: 50%;
+  background: currentColor;
+  animation-timing-function: cubic-bezier(0, 1, 1, 0);
+}
+.lds-ellipsis div:nth-child(1) {
+  left: 12px; 
+  animation: lds-ellipsis1 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(2) {
+  left: 12px; 
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(3) {
+  left: 48px;
+  animation: lds-ellipsis2 0.6s infinite;
+}
+.lds-ellipsis div:nth-child(4) {
+  left: 84px;
+  animation: lds-ellipsis3 0.6s infinite;
+}
+@keyframes lds-ellipsis1 {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes lds-ellipsis3 {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes lds-ellipsis2 {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(36px, 0);
+  }
+}
+
+.loading-spinner-container {
+  display: flex;
+  justify-content: center;
+}
+
