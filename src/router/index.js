@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import ChecklistsPage from '../views/ChecklistsPage.vue';
+import ListPage from '../views/ListPage.vue';
 import IssuesPage from '../views/IssuesPage.vue';
 import HistoryPage from '../views/HistoryPage.vue';
 import RegisterPage from '../views/RegisterPage.vue';
@@ -10,6 +11,10 @@ const routes = [
     {
         path: '/',
         component: ChecklistsPage
+    },
+    {
+        path: '/list/:id',
+        component: ListPage
     },
     {
         path: '/issues',

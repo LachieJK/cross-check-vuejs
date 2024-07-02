@@ -36,8 +36,8 @@
         </div>
         
         <div v-if="checklists" id="sortable-lists">
-            <div v-for="checklist in checklists">
-                <div class="list-contents" data-id="{{ checklist.id }}">
+            <div v-for="checklist in checklists" :key="checklist.id">
+                <div class="list-contents" :data-id="checklist.id" @click="goToList($event)">
                     <!-- Handle for dragging the checklist, facilitating the sorting functionality -->
                     <div class="contents-handle handle">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrows-move" viewBox="0 0 16 16">
@@ -129,40 +129,73 @@ export default {
             user: null,
             checklists: [],
             realtime_changes: undefined,
+            total_task_count: null,
+            completed_task_count: null,
+            issue_task_count: null,
         }
     },
     async created() {
         await this.getUser();
-        this.getChecklists();
+        this.getChecklistsData();
         this.subscribeLists();
     },
     methods: {
         async getUser() {
             const { data } = await supabase.auth.getUser()
             this.user = data.user
-            console.log(this.user)
             if (this.user == null) {
                 return this.$router.push('/login')
             }
         },
-        async getChecklists() {
+        goToList(event) {
+            const list_id = event.currentTarget.getAttribute('data-id');
+            this.$router.push(`/list/${list_id}`);
+        },
+        async getChecklistsData() {
             const { data, error } = await supabase
                 .from('D100_List')
                 .select('*')
-                .eq('owner_id', this.user.id)
+                .eq('owner_id', this.user.id);
             if (error) {
-                console.error("get list error is " + error)
-            } else {
-                this.checklists = data
+                console.error("get list error is " + error);
+                return;
             }
+            this.checklists = await Promise.all(data.map(async checklist => {
+                const counts = await this.checklistCounts(checklist.id);
+                return { ...checklist, ...counts };
+            }));
+            console.log(this.checklists);
         },
-        async createList() {
+        async checklistCounts(list_id) {
+            const { data, error } = await supabase
+                .from('D300_Task')
+                .select('*')
+                .eq('list_id', list_id);
+            if (error) {
+                console.error("get task error is " + error);
+                return { completed_task_count: 0, issue_task_count: 0, total_task_count: 0 };
+            }
+            const completed_task_count = data.filter(task => task.completedStatus === true).length;
+            const issue_task_count = data.filter(task => task.issueStatus === true).length;
+            const total_task_count = data.length;
+            return {
+                completed_task_count,
+                issue_task_count,
+                total_task_count,
+            };
+        },
+        async createList(event) {
+            event.preventDefault()
             const title = document.getElementById('list_title_textarea').value
-            const { error } = await supabase
+            const { checklist, error } = await supabase
                 .from('D100_List')
                 .insert({ listName: title, owner_id: this.user.id})
             if (error) {
                 console.error("create list error is " + error)
+            }
+            else {
+                const modal = bootstrap.Modal.getInstance(this.$refs.createListModal);
+                modal.hide();
             }
         },
         subscribeLists() {
