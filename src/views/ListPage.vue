@@ -51,7 +51,7 @@
             </div>
         </div>
 
-        <div v-if="tasks">
+        <div v-if="tasks.length > 0">
             <!-- Container for tasks, allowing sorting functionality -->
             <div id="sortable-tasks">
                 <div v-for="task in tasks" :key="task.id">

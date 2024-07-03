@@ -44,7 +44,7 @@
                 </div>
             </div>
             <!-- TODO: -->
-            <div v-if="checklists" id="sortable-lists">
+            <div v-if="checklists.length > 0" id="sortable-lists">
                 <div v-for="checklist in checklists" :key="checklist.id">
                     <div class="list-contents" :data-id="checklist.id" @click="goToList($event)">
                         <!-- Handle for dragging the checklist, facilitating the sorting functionality -->

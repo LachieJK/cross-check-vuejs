@@ -1,19 +1,25 @@
 <template>
-    <h2 class="details-heading">Login</h2> <!-- Heading for login -->
-
-    <!-- Form for login -->
-    <form class="centered-form" @submit.prevent="login">
-        <div class="form-group" style="width: 40vw">
-            <input v-model="email" autofocus class="form-control" type="text" placeholder="Email"> <!-- Input for email -->
+    <div class="login-page">
+        <div class="login-container">
+            <div class="login-titles">
+                <img src="https://cdn-icons-png.freepik.com/512/2530/2530994.png" alt="logo" width="100px">
+                <h1 class="login-heading">Welcome!</h1>
+                <p class="login-text">Log in to Access your Checklists</p>
+            </div>
+            <form class="centered-form" @submit.prevent="login">
+                <div class="form-section">
+                    <input v-model="email" autofocus class="form-component" type="text" placeholder="Email">
+                </div>
+                <div class="form-section" style="margin-bottom: 30px;">
+                    <input v-model="password" class="form-component" type="password" placeholder="Password">
+                </div>
+                <input class="login-button" type="submit" value="Continue">
+                <div style="padding-top: 40px">
+                    Don't have an account? <router-link to="/register">Register here.</router-link> <!-- Link for registration -->
+                </div>
+            </form>
         </div>
-        <div class="form-group" style="width: 40vw">
-            <input v-model="password" class="form-control" type="password" placeholder="Password"> <!-- Input for password -->
-        </div>
-        <input class="btn btn-primary" type="submit" value="Login" style="width: 40vw"> <!-- Login button -->
-        <div style="padding-top: 40px">
-            Don't have an account? <router-link to="/register">Register here.</router-link> <!-- Link for registration -->
-        </div>
-    </form>
+    </div>
 </template>
 
 <script>

@@ -4,7 +4,7 @@ body {
   padding-left: 50px; /* Left padding for body content */
   padding-right: 50px; /* Right padding for body content */
   padding-bottom: 50px; /* Space on the bottom of page */
-  background-color: #fafafa; /* Light grey background for contrast */
+  background-color: #fafafa ; /* Light grey background for contrast */
 }
 
 /* h2 styles */
@@ -227,6 +227,69 @@ button {
 
 .cancel-button:hover {
   background-color: rgb(203, 203, 203) !important; /* Hover color */
+}
+.login-container {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+  background-color: white;
+  padding: 40px 30px 50px 30px;
+  border-radius: 5px;
+  box-shadow: 0 0 30px rgba(0,0,0,0.2);
+}
+.error-message {
+  padding-bottom: 15px;
+  font-size: 16px;
+  margin: 0px;
+  color: red;
+}
+.login-titles {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login-heading {
+  margin-top: 15px;
+  font-size: 30px;
+  font-weight: normal;
+}
+.login-text {
+  font-size: 16px;
+  padding-top: 5px;
+  padding-bottom: 10px;
+}
+.centered-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.form-section {
+  width: 400px;
+  margin-bottom: 15px;
+}
+.form-component {
+  font-size: 14px;
+  width: 400px;
+  box-sizing: border-box;
+  padding: 15px 20px;
+  border-radius: 5px;
+  border: none;
+  border: solid 1.5px #ccc;
+  background-color: white;
+}
+.login-button {
+  font-size: 16px;
+  background-color: #0275d8;
+  width: 400px;
+  color: white;
+  padding: 15px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.login-button:hover {
+  background-color: #025aa5;
 }
 
 .signout-container {
